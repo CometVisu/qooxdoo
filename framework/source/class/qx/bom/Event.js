@@ -68,10 +68,6 @@ qx.Bootstrap.define("qx.bom.Event",
 {
   statics :
   {
-    RECORD: null,
-    REG: {},
-    WRAPPERS: {},
-
     /**
      * Use the low level browser functionality to attach event listeners
      * to DOM nodes.
@@ -87,22 +83,12 @@ qx.Bootstrap.define("qx.bom.Event",
      */
     addNativeListener : function(target, type, listener, useCapture)
     {
-      var wrapper = listener;
-      if (!qx.bom.Event.REG[type]) {
-        wrapper = function(ev) {
-          if (qx.bom.Event.RECORD) {
-            qx.bom.Event.RECORD(ev);
-          }
-          listener(ev);
-        };
-        qx.bom.Event.WRAPPERS[listener] = wrapper;
-      }
       if (target.addEventListener) {
-        target.addEventListener(type, wrapper, !!useCapture);
+        target.addEventListener(type, listener, !!useCapture);
       } else if (target.attachEvent) {
-        target.attachEvent("on" + type, wrapper);
+        target.attachEvent("on" + type, listener);
       } else if (typeof target["on" + type] != "undefined") {
-        target["on" + type] = wrapper;
+        target["on" + type] = listener;
       } else {
         if (qx.core.Environment.get("qx.debug")) {
           qx.log.Logger.warn("No method available to add native listener to " + target);
@@ -123,7 +109,6 @@ qx.Bootstrap.define("qx.bom.Event",
      */
     removeNativeListener : function(target, type, listener, useCapture)
     {
-      listener = qx.bom.Event.WRAPPERS[listener] || listener;
       if (target.removeEventListener)
       {
         target.removeEventListener(type, listener, !!useCapture);
