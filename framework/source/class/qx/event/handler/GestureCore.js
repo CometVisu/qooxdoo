@@ -207,24 +207,27 @@ qx.Bootstrap.define("qx.event.handler.GestureCore", {
       if (this._hasIntermediaryHandler(target)) {
         return;
       }
-
+      console.log(target);
       this.__gesture[domEvent.pointerId] = {
-        "startTime" : new Date().getTime(),
-        "lastEventTime" : new Date().getTime(),
-        "startX" : domEvent.clientX,
-        "startY" : domEvent.clientY,
-        "clientX" : domEvent.clientX,
-        "clientY" : domEvent.clientY,
-        "velocityX" : 0,
-        "velocityY" : 0,
-        "target" : target,
-        "isTap" : true,
-        "isPrimary" : domEvent.isPrimary,
-        "longTapTimer" : window.setTimeout(
+        "startTime": new Date().getTime(),
+        "lastEventTime": new Date().getTime(),
+        "startX": domEvent.clientX,
+        "startY": domEvent.clientY,
+        "clientX": domEvent.clientX,
+        "clientY": domEvent.clientY,
+        "velocityX": 0,
+        "velocityY": 0,
+        "target": target,
+        "isTap": true,
+        "isPrimary": domEvent.isPrimary
+      };
+      var longtapable = !!qx.bom.element.Dataset.get(target, "longtapable");
+      if (longtapable) {
+        this.__gesture[domEvent.pointerId].longTapTimer = window.setTimeout(
           this.__fireLongTap.bind(this, domEvent, target),
           qx.event.handler.GestureCore.LONGTAP_TIME
-        )
-      };
+        );
+      }
 
       if(domEvent.isPrimary) {
         this.__isMultiPointerGesture = false;
