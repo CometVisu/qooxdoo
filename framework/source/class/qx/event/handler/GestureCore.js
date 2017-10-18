@@ -207,7 +207,7 @@ qx.Bootstrap.define("qx.event.handler.GestureCore", {
       if (this._hasIntermediaryHandler(target)) {
         return;
       }
-      console.log(target);
+
       this.__gesture[domEvent.pointerId] = {
         "startTime": new Date().getTime(),
         "lastEventTime": new Date().getTime(),
