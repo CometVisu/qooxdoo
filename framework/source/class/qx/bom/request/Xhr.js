@@ -51,7 +51,7 @@
  *  req.responseType = "blob";
  *  req.send();
  * </pre>
- 
+
  * </div>
  *
  * @ignore(XDomainRequest)
@@ -170,7 +170,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
      * @type {Object} The response of the request as a Document object.
      */
     response: null,
-    
+
     /**
      * @type {Object} The response of the request as object.
      */
@@ -705,6 +705,7 @@ qx.Bootstrap.define("qx.bom.request.Xhr",
 
       // Remove reference to native XHR
       this.__nativeXhr = null;
+      this.responseText = null;
 
       this.__disposed = true;
       return true;
