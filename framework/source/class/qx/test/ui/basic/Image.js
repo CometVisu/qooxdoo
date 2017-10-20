@@ -397,6 +397,15 @@ qx.Class.define("qx.test.ui.basic.Image",
 
       // Back to no scale
       image.setScale(false);
+      image.setWidth(40);
+      this.assertEquals("40px", el.getStyle("fontSize"));
+
+      // Set size via name postfix
+      image.setSource("@FontAwesome/heart/55");
+      this.assertEquals("55px", el.getStyle("fontSize"));
+
+      // Check revert to default size
+      image.setSource("@FontAwesome/heart");
       this.assertEquals("40px", el.getStyle("fontSize"));
 
       // Change content element
@@ -508,6 +517,9 @@ qx.Class.define("qx.test.ui.basic.Image",
       return qx.core.Environment.get("engine.name") === "gecko";
     },
 
+    /**
+     * @ignore(qx.theme.icon.Font)
+     */
     _initWebFont : function()
     {
       qx.$$resources["@FontAwesome/heart"] = [40, 40, 61444];
