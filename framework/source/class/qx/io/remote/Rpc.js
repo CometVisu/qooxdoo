@@ -381,7 +381,6 @@ qx.Class.define("qx.io.remote.Rpc",
     },
 
     /**
-     * EXPERIMENTAL
      *
      * Whether to use the original qooxdoo RPC protocol or the
      * now-standardized Version 2 protocol.  Defaults to the original qooxdoo
@@ -391,7 +390,7 @@ qx.Class.define("qx.io.remote.Rpc",
      */
     protocol :
     {
-      init : "qx1",
+      init : "2.0",
       check : function(val) { return val == "qx1" || val == "2.0"; }
     }
   },
